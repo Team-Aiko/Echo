@@ -1,23 +1,29 @@
-title: Echo - Your Discord Bot Companion
+title: "Echo - Your Discord Bot Companion"
 description: "Explore Echo's features, roadmap, and future updates."
-baseurl: "/Echo" # Adjust if repository name is Echo
+
+# Base URL and Site URL (for GitHub Pages)
+baseurl: "/Echo" # Use your repository name
 url: "https://team-aiko.github.io" # Your GitHub Pages domain
-theme: minima # Using a known, working theme for now
+
+# Theme (make sure it's installed)
+remote_theme: "pages-themes/midnight@v0.2.0"
+
+# Markdown & Syntax Highlighting
 markdown: kramdown
 highlighter: rouge
 
 # Navigation Links
 nav_links:
-  - title: Home
-    url: /
-  - title: Features
-    url: /features
-  - title: Roadmap
-    url: /roadmap
-  - title: Support
-    url: /support
-  - title: GitHub
-    url: https://github.com/Team-Aiko/Echo
+  - title: "Home"
+    url: "/"
+  - title: "Features"
+    url: "/features"
+  - title: "Roadmap"
+    url: "/roadmap"
+  - title: "Support"
+    url: "/support"
+  - title: "GitHub"
+    url: "https://github.com/Team-Aiko/Echo"
 
 # Plugins
 plugins:
@@ -28,15 +34,15 @@ plugins:
 # SEO Metadata
 seo:
   site_name: "Echo - Your Discord Bot Companion"
-  twitter_username: "@your_twitter_handle" # Replace with your Twitter handle (optional)
-  github_repo: Team-Aiko/Echo
+  twitter_username: "@your_twitter_handle" # Replace with your actual Twitter handle
+  github_repo: "Team-Aiko/Echo"
 
 # Social Links (Optional)
 social_links:
-  - name: GitHub
-    url: https://github.com/Team-Aiko/Echo
-  - name: Discord
-    url: https://discord.gg/your-invite-link # Replace with your Discord invite link
+  - name: "GitHub"
+    url: "https://github.com/Team-Aiko/Echo"
+  - name: "Discord"
+    url: "https://discord.gg/your-invite-link" # Replace with your actual Discord link
 
 # Footer
 footer: "© 2025 Team Aiko. Built with Jekyll and GitHub Pages."
