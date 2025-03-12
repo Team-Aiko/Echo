@@ -2,7 +2,7 @@ title: Echo - Your Discord Bot Companion
 description: "Explore Echo's features, roadmap, and future updates."
 baseurl: "/Echo" # Adjust if repository name is Echo
 url: "https://team-aiko.github.io" # Your GitHub Pages domain
-theme: midnight # Chosen dark theme for a polished look
+theme: minima # Using a known, working theme for now
 markdown: kramdown
 highlighter: rouge
 
