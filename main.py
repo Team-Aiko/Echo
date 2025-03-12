@@ -98,7 +98,7 @@ if __name__ == "__main__":
         command_modules=command_modules,
         command_prefix="!",
         intents=intents,
-        activity=discord.Game(name="Echo Bot v1.3.6"),
+        activity=discord.Game(name="Echo Bot v1.3.7"),
         status=discord.Status.online
     )
 
