@@ -20,12 +20,17 @@ Welcome to **Echo**, the ultimate Discord bot that grows alongside your server! 
 ---
 
 ## 📌 **Version and Changelog**
-### **Current Version: 1.3.3**
-- Reverted to version 1.3.3 due to errors encountered with the Hugging Face API integration.
-- Removed the /ask command that utilized the Hugging Face API.
-- Restored previous stable functionality for all commands.
-- Ensured all commands are loading and syncing correctly without errors.
-- Maintained improvements and bug fixes from version 1.3.2.
+### **Current Version: 1.3.7**
+- 🚀 **Major Performance Boost**: Optimized bot startup and command execution speed.
+- 🐞 **Critical Fixes**: Resolved issues with slash command registration and syncing.
+- 🎬 **YouTube Command Overhaul**: Faster video retrieval with better API handling and improved error reporting.
+- 🔊 **Audio Streaming Improvements**: Increased bitrate and stability in `/play` for better sound quality.
+  - ⚠️ **Note:** While sound quality has improved, **some slight distortions may still occur** due to Discord's streaming limitations.
+- 📌 **Refined `/userinfo` Command**: Now includes profile buttons, role display, and improved visual clarity.
+- 🔄 **Optimized API Handling**: Improved YouTube API requests with faster responses and better error handling.
+- ⚡ **Faster Command Execution**: Reduced latency across all commands for a smoother user experience.
+- 🎨 **Enhanced UI & Interactivity**: Improved premium & donation command designs (⚠️ Not Available Yet).
+- 🔧 **Bug Fixes & Stability Updates**: Addressed minor issues for better overall performance and reliability.
 
 ---
 

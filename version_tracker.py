@@ -1,13 +1,15 @@
 VERSION_TRACKER = {
-    "version": "1.3.6",
+    "version": "1.3.7",
     "changelog": [
-        "🚀 **Major Performance Boost**: Optimized bot startup and command sync for lightning-fast execution.",
-        "🐞 **Critical Fixes**: Resolved command sync errors that caused delays during startup.",
-        "🎨 **Enhanced UI & Interactivity**: Improved visual appeal of premium & donation commands (⚠️ Not Available Yet).",
-        "🎬 **YouTube Command Overhaul**: Now fetches video details faster, with error handling improvements.",
-        "📌 **Refined `/userinfo` Command**: Added profile buttons, role display, and better server integration.",
-        "🔄 **Optimized API Handling**: Improved YouTube API requests with better error handling and logging.",
-        "⚡ **Faster Command Execution**: Reduced latency across all commands for a smoother experience.",
-        "🔧 **Bug Fixes & Stability Updates**: Patched minor issues for a more reliable bot experience."
+        "🚀 **Major Performance Boost**: Further optimized bot startup and command execution speed.",
+        "🐞 **Critical Fixes**: Resolved issues with slash command registration and syncing.",
+        "🎨 **Enhanced UI & Interactivity**: Improved premium & donation command designs (⚠️ Not Available Yet).",
+        "🎬 **YouTube Command Overhaul**: Faster video retrieval with better API handling and improved error reporting.",
+        "📌 **Refined `/userinfo` Command**: Now includes profile buttons, role display, and streamlined information.",
+        "🔊 **Audio Streaming Improvements**: Increased bitrate and stability in `/play` for better sound quality.",
+        "🎵 **Known Audio Limitations**: While sound quality has improved, some distortions may still occur due to streaming limitations.",
+        "🔄 **Optimized API Handling**: Improved YouTube API requests with faster responses and better error handling.",
+        "⚡ **Faster Command Execution**: Reduced latency across all commands for a smoother user experience.",
+        "🔧 **Bug Fixes & Stability Updates**: Addressed minor issues for better overall performance and reliability."
     ]
 }
