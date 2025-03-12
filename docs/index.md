@@ -1,36 +1,77 @@
-# 🌟 **Welcome to Echo**
-Welcome to **Echo**, your evolving Discord bot companion! Whether you're a community manager, server owner, or casual user, Echo is designed to enhance your Discord experience with dynamic features and planned future updates.
+---
+title: 🌟 Welcome to Echo Bot!
+description: "Meet Echo: the Discord bot designed to enrich your community interactions. Learn more about current features and what's coming next."
+---
 
-[![GitHub Repo](https://img.shields.io/github/stars/Team-Aiko/Echo?style=social)](https://github.com/Team-Aiko/Echo)
-[![Discord](https://img.shields.io/discord/yourserverID?label=Join%20our%20Discord)](https://discord.gg/yourserverinvite)
+# 🌟 **Welcome to Echo Bot**
+
+Echo is your evolving Discord companion, thoughtfully crafted to enrich your community management, enhance interactions, and simplify tasks—no matter if you're a server owner, moderator, or casual user.
+
+[🎉 **Join Our Discord**](https://discord.gg/yourserverinvite) | [🐙 **GitHub Repo**](https://github.com/Team-Aiko/Echo)
+
+[![GitHub Stars](https://img.shields.io/github/stars/Team-Aiko/Echo?style=social)](https://github.com/Team-Aiko/Echo)
+[![Discord](https://img.shields.io/discord/yourserverinvite?color=5865F2&label=Discord&logo=discord&style=flat)](https://discord.gg/yourserverinvite)
 
 ---
 
-## 🚀 **What is Echo?**
-Echo is a powerful and flexible Discord bot built with scalability and community engagement in mind. While Echo is still under development, it already supports core functionality like the **YouTube Command**, with exciting features and enhancements coming soon.
+## 🚀 **About Echo Bot**
+
+Echo is an intuitive, scalable Discord bot designed to foster vibrant and interactive communities. With a robust core of practical features and an ambitious roadmap ahead, Echo aims to be your go-to solution for enhancing your server’s Discord experience.
+
+**Current capabilities include:**
+
+- Quickly fetching YouTube video information.
+- Interactive commands with clear and elegant embeds.
+- Professional and efficient user interactions.
+
+*[Learn more about Echo’s features →](./features.md)*
 
 ---
 
-### 🛠️ **Features**
-- 🎉 **YouTube Command**: Fetch video details with support for basic and premium modes.
-- 🚀 Dynamic placeholders under active development.
-- ✨ **AI integration** and other exciting updates in the pipeline.
+## 🛠️ **Key Features at a Glance**
 
-Check out the [features page](./features.md) for a detailed breakdown of current and planned features.
+- **YouTube Integration**:
+  - 🎬 Basic mode: Quick and reliable video info.
+  - 💎 Premium mode *(⚠️ Coming Soon)*: Advanced analytics and powerful API tools.
 
----
+- **Dynamic & Interactive Commands**:
+  - Elegant, user-friendly design to boost engagement.
 
-### 📅 **Roadmap**
-Curious about what's next? Visit the [roadmap](./roadmap.md) page for upcoming milestones, including premium YouTube API functionality and AI-based tools.
+- **Planned AI-Powered Tools** *(⚠️ Coming Soon)*:
+  - Smart, context-aware interactions.
+  - Enhanced moderation and user interaction.
 
----
-
-### 🔧 **Development Note**
-Please note that the GitHub page is still a work in progress and may take some time to be fully completed, as the priority is to finish developing the bot first. Thank you for your patience and understanding!
+[👉 **See All Features**](./features.md)
 
 ---
 
-### 💬 **Support and Community**
-Need help or want to contribute? Head over to the [support page](./support.md) for links to our Discord server and GitHub repository.
+## 🗓️ **Our Roadmap**
+
+We're continuously evolving! Our roadmap highlights our commitment to adding premium functionalities, AI-powered features, and exciting community engagement tools.
+
+Explore what's next on our [Roadmap Page](./roadmap.md).
 
 ---
+
+## 💖 **Support Echo**
+
+Echo thrives thanks to the generous support from users like you. If you enjoy the bot and want to support its ongoing development, consider [making a donation](./donate.md). Every contribution helps!
+
+[❤️ **Donate Now**](./donate.md)
+
+---
+
+## 📚 **Need Help or Have Suggestions?**
+
+We’d love to hear your feedback! Visit our [Support Page](./support.md) to join the conversation, contribute ideas, or report any issues.
+
+---
+
+## 🛠️ **Developers & Contributors**
+
+Interested in contributing to Echo’s development or exploring its codebase? Check out our [GitHub Repository](https://github.com/Team-Aiko/Echo) and become part of the community!
+
+---
+
+© 2025 Echo Bot by Team Aiko  
+Made with ❤️ & powered by GitHub Pages

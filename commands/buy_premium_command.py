@@ -1,91 +1,122 @@
 import discord
 from discord import Embed, Interaction, Object
-from discord.ui import View, Select
+from discord.ui import View, Select, Button
 import logging
 
-# Set up logging to track command usage
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-# Replace this with a real check for your service availability
-service_online = False  # Example: dynamically update based on your system's state
+# Example: Dynamically update this variable based on your actual service state
+service_online = True
 
 async def setup(bot):
     @bot.tree.command(
         name="buy_premium",
-        description="💎 Learn how to purchase premium access for exclusive features!",
-        guild=Object(id=493120353011236905)  # Replace with your Guild ID
+        description="💎 Unlock exclusive premium features!",
+        guild=Object(id=493120353011236905)
     )
     async def buy_premium(interaction: Interaction):
-        """
-        This command provides information on buying premium and outlines its features.
-        """
-        # Log command usage
         logging.info(f"User {interaction.user} used /buy_premium at {interaction.created_at}")
 
-        # Dynamic embed creation based on service status
+        # Embed with enhanced visuals
         embed = Embed(
-            title="Buy Premium 🚀",
+            title="✨ Premium Membership ✨",
             description=(
-                "Unlock exclusive features with a premium subscription!\n\n"
-                "**Status:**"
-                f" {'🟢 Online - Ready to Purchase!' if service_online else '🔴 Offline - Please check back later.'}"
+                "Take your experience to the **next level!**\n"
+                f"**Current Status:** {'🟢 Online - Ready to purchase!' if service_online else '🔴 Offline - Currently unavailable.'}"
             ),
-            color=0x1abc9c if service_online else 0x808080
+            color=0x5865F2 if service_online else 0xFF0000
         )
 
-        # Add premium features list to the embed
-        embed.add_field(
-            name="💎 Premium Features Include:",
-            value=(
-                "- Full access to **YouTube API commands**\n"
-                "- Advanced **custom bot commands**\n"
-                "- Priority support for bug fixes and feature requests\n"
-                "- Early access to **new updates and beta features**\n"
-                "- Special **premium-only roles** and perks in the community"
-            ),
-            inline=False
+        embed.set_thumbnail(url=interaction.client.user.display_avatar.url)
+
+        # Highlight features with emojis for better readability
+        premium_features = (
+            "✅ Full access to **YouTube API commands**\n"
+            "⚙️ Advanced **custom commands**\n"
+            "🚑 Priority **support and bug fixes**\n"
+            "🆕 Early **beta access to updates**\n"
+            "🏅 Exclusive **premium-only roles**"
         )
 
-        embed.set_footer(text="Thank you for your support!")
+        embed.add_field(name="🌟 Premium Benefits:", value=premium_features, inline=False)
 
-        # Add interactive dropdown or dynamic button
+        embed.set_image(url="https://i.imgur.com/4M7IWwP.png")  # Replace with a custom promotional banner
+        embed.set_footer(text="Thanks for supporting Echo Bot!", icon_url=interaction.client.user.display_avatar.url)
+
+        # Interactive Buttons & Dropdown
         view = View()
 
         if service_online:
-            # Button for active service
-            view.add_item(discord.ui.Button(
-                label="Buy Premium Now!",
-                url="https://www.example.com",  # Replace with your purchase link
-                style=discord.ButtonStyle.link,
-                disabled=False
-            ))
-        else:
-            # Disabled button with placeholder text
-            view.add_item(discord.ui.Button(
-                label="Buy Premium (Offline)",
-                url="https://www.example.com",  # Placeholder for the future link
-                style=discord.ButtonStyle.link,
-                disabled=True
-            ))
+            # Active purchase button
+            buy_button = Button(
+                label="🚀 Buy Premium Now",
+                url="https://www.example.com",  # Your real purchase URL here
+                style=discord.ButtonStyle.link
+            )
+            view.add_item(buy_button)
 
-        # Dropdown menu for future plan selections
-        class PremiumDropdown(Select):
-            def __init__(self):
-                options = [
-                    discord.SelectOption(label="Basic", description="Access core features", value="basic"),
-                    discord.SelectOption(label="Pro", description="Unlock advanced features", value="pro"),
-                    discord.SelectOption(label="Ultimate", description="All features included!", value="ultimate")
-                ]
-                super().__init__(placeholder="Choose your premium plan", options=options)
+            # Informational "Learn More" button
+            learn_more_button = Button(
+                label="📚 Learn More",
+                style=discord.ButtonStyle.secondary
+            )
 
-            async def callback(self, interaction: Interaction):
-                await interaction.response.send_message(
-                    f"You selected the {self.values[0]} plan. 🚀 Thank you for your interest!", ephemeral=True
+            async def learn_more_callback(inter: Interaction):
+                more_info_embed = Embed(
+                    title="📚 More about Premium Plans",
+                    description=(
+                        "**Basic:** Access core premium features.\n"
+                        "**Pro:** Unlock advanced commands and perks.\n"
+                        "**Ultimate:** Full access, early beta features, and exclusive roles."
+                    ),
+                    color=0x2ECC71
                 )
+                more_info_embed.set_footer(text="Choose the plan that suits you best!")
+                await inter.response.send_message(embed=more_info_embed, ephemeral=True)
 
-        # Add the dropdown to the view if the service is online
-        if service_online:
-            view.add_item(PremiumDropdown())
+            learn_more_button.callback = learn_more_callback
+            view.add_item(learn_more_button)
 
-        # Send the embed with the interactive view
+            # Dropdown for premium plan selection
+            class PremiumPlanSelect(Select):
+                def __init__(self):
+                    super().__init__(
+                        placeholder="✨ Select a Premium Plan",
+                        options=[
+                            discord.SelectOption(
+                                label="Basic",
+                                description="Core premium features",
+                                emoji="🔹"
+                            ),
+                            discord.SelectOption(
+                                label="Pro",
+                                description="Advanced premium features",
+                                emoji="🔸"
+                            ),
+                            discord.SelectOption(
+                                label="Ultimate",
+                                description="All features and perks included",
+                                emoji="💠"
+                            )
+                        ]
+                    )
+
+                async def callback(self, inter: Interaction):
+                    selected_plan = self.values[0]
+                    await inter.response.send_message(
+                        f"🎉 You've selected the **{selected_plan}** plan! Visit our [purchase page](https://www.example.com) to proceed.", 
+                        ephemeral=True
+                    )
+
+            view.add_item(PremiumPlanSelect())
+
+        else:
+            # Disabled button when offline
+            offline_button = Button(
+                label="🔴 Premium Offline",
+                style=discord.ButtonStyle.secondary,
+                disabled=True
+            )
+            view.add_item(offline_button)
+
         await interaction.response.send_message(embed=embed, view=view, ephemeral=True)

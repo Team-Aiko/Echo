@@ -1,48 +1,75 @@
-title: "Echo - Your Discord Bot Companion"
-description: "Explore Echo's features, roadmap, and future updates."
+title: "✨ Echo - Your Discord Companion"
+description: "Enhance your Discord community with Echo! Discover powerful features, updates, and our exciting roadmap."
 
-# Base URL and Site URL (for GitHub Pages)
-baseurl: "/Echo" # Use your repository name
-url: "https://team-aiko.github.io" # Your GitHub Pages domain
+# URLs
+baseurl: "/"  # Repository name if needed (e.g., "/Echo" if using a subpath)
+url: "https://team-aiko.github.io"  # Replace with your actual GitHub Pages URL
 
-# Theme (make sure it's installed)
-remote_theme: "pages-themes/midnight@v0.2.0"
-
-# Markdown & Syntax Highlighting
+# Theme & Styling
 markdown: kramdown
 highlighter: rouge
+theme: minima # or your chosen theme
 
-# Navigation Links
+# Remote Theme (optional for modern look)
+# remote_theme: pages-themes/cayman@v0.2.0
+
+# SEO and Social Metadata
+plugins:
+  - jekyll-seo-tag
+
+seo:
+  site_name: "Echo - Discord Companion Bot"
+  description: "Echo brings seamless interactions, dynamic commands, and premium features to your Discord server."
+  author: "Team Aiko"
+  twitter_username: "@your_twitter_handle" # Replace with actual Twitter handle
+  github_repo: "Team-Aiko/Echo"
+
+# Base URLs
+baseurl: ""  # If your site is served from a subpath, set this.
+url: "https://team-aiko.github.io" # Your GitHub Pages URL
+
+# Navigation
 nav_links:
-  - title: "Home"
+  - title: "🏠 Home"
     url: "/"
-  - title: "Features"
+  - title: "✨ Features"
     url: "/features"
-  - title: "Roadmap"
+  - title: "🗺️ Roadmap"
     url: "/roadmap"
-  - title: "Support"
-    url: "/support"
-  - title: "GitHub"
-    url: "https://github.com/Team-Aiko/Echo"
+  - title: "📝 Changelog"
+    url: "/changelog"
+  - title: "💎 Premium"
+    url: "/premium"
+  - title: "❤️ Donate"
+    url: "/donate"
 
-# Plugins
+# Social Links
+social_links:
+  - name: "🐙 GitHub"
+    url: "https://github.com/Team-Aiko/Echo"
+  - name: "🐦 Twitter"
+    url: "https://twitter.com/your_twitter_handle" # Replace this
+  - name: "💬 Discord"
+    url: "https://discord.gg/your_invite_link" # Your Discord invite link
+  - name: "✉️ Feedback"
+    url: "https://forms.gle/yourformlink"
+
+# Footer Text
+footer_text: "Made with ❤️ by Team Aiko | © 2025 Echo Bot"
+
+# Defaults for better SEO and pages metadata
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+      image: "/assets/images/echo_banner.png" # Optional banner image
+      author: "Team Aiko"
+
+# Plugins for advanced functionality (optional)
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-feed
 
-# SEO Metadata
-seo:
-  site_name: "Echo - Your Discord Bot Companion"
-  twitter_username: "@your_twitter_handle" # Replace with your actual Twitter handle
-  github_repo: "Team-Aiko/Echo"
-
-# Social Links (Optional)
-social_links:
-  - name: "GitHub"
-    url: "https://github.com/Team-Aiko/Echo"
-  - name: "Discord"
-    url: "https://discord.gg/your-invite-link" # Replace with your actual Discord link
-
-# Footer
-footer: "© 2025 Team Aiko. Built with Jekyll and GitHub Pages."
