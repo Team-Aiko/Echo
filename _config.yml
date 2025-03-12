@@ -1,0 +1,42 @@
+title: Echo - Your Discord Bot Companion
+description: "Explore Echo's features, roadmap, and future plans."
+baseurl: "/Echo" # If the repository name is Echo, this should match
+url: "https://team-aiko.github.io" # Your GitHub Pages domain
+theme: minima # You can replace 'minima' with another supported theme
+markdown: kramdown
+highlighter: rouge
+
+# Navigation Links
+nav_links:
+  - title: Home
+    url: /
+  - title: Features
+    url: /features
+  - title: Roadmap
+    url: /roadmap
+  - title: Support
+    url: /support
+  - title: GitHub
+    url: https://github.com/Team-Aiko/Echo
+
+# Social Links (Optional)
+social_links:
+  - name: GitHub
+    url: https://github.com/Team-Aiko/Echo
+  - name: Discord
+    url: https://discord.gg/your-invite-link # Replace with your Discord invite link
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-feed
+
+# SEO and Metadata
+seo:
+  site_name: "Echo - Your Discord Bot Companion"
+  twitter_username: "@your_twitter_handle" # Replace with your Twitter handle
+  github_repo: Team-Aiko/Echo
+
+# Footer Settings
+footer: "© 2025 Team Aiko. Built with Jekyll and GitHub Pages."
