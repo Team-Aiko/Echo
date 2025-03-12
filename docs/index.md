@@ -1,8 +1,3 @@
----
-title: Echo - Your Discord Bot Companion
-description: "Explore Echo's features, roadmap, and future plans."
----
-
 # 🌟 **Welcome to Echo**
 Welcome to **Echo**, your evolving Discord bot companion! Whether you're a community manager, server owner, or casual user, Echo is designed to enhance your Discord experience with dynamic features and planned future updates.
 
@@ -27,6 +22,11 @@ Check out the [features page](./features.md) for a detailed breakdown of current
 
 ### 📅 **Roadmap**
 Curious about what's next? Visit the [roadmap](./roadmap.md) page for upcoming milestones, including premium YouTube API functionality and AI-based tools.
+
+---
+
+### 🔧 **Development Note**
+Please note that the GitHub page is still a work in progress and may take some time to be fully completed, as the priority is to finish developing the bot first. Thank you for your patience and understanding!
 
 ---
 
