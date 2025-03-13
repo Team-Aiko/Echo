@@ -10,6 +10,12 @@ __pycache__/
 # Environment Variables
 .env
 
+guild_id.json
+anti_nuke.py
+anti_predator.py
+anti_spam.py
+bot_info.py
+
 # OS Files
 .DS_Store
 Thumbs.db

@@ -4,7 +4,7 @@ class BotInfo:
     """
     Centralized information about the bot, including version and service status.
     """
-    VERSION = "v1.3.2"  # Update this for new bot versions
+    VERSION = "v1.3.8"  # Update this for new bot versions
     service_online = True  # Dynamically update based on your system's state
 
     @classmethod
