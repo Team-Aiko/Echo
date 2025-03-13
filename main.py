@@ -1,224 +1,186 @@
 import discord
 from discord.ext import commands
 import logging
-import os
 import importlib
 import asyncio
-from dotenv import load_dotenv
+import os
+from secure_storage import load_encrypted_data  # Import secure credential loader
+from core.anti_nuke import AntiNuke
+from core.anti_spam import AntiSpamRaid
+from core.anti_predator import AntiPredator
+from core.bot_info import BotInfo
 
-# Core Security Features
-from core.anti_nuke import AntiNuke          # 🛡 Nuke Protection
-from core.anti_spam import AntiSpamRaid      # 🛡 Spam & Raid Protection
-from core.anti_predator import AntiPredator  # 🛡 Predator Protection
-from core.bot_info import BotInfo            # 🔹 Bot Information Tracker
-
-# 1. Load Environment Variables (ensure this happens early)
-load_dotenv()
-
-# 2. Set Up Logging
+# Set up logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-# 3. Discord Intents Setup (Enable reading messages, members, moderation, etc.)
+# Load encrypted bot credentials
+bot_config = load_encrypted_data()
+
+if not bot_config:
+    logging.critical("❌ Failed to load encrypted bot credentials. Run `secure_storage.py /encrypt` first.")
+    exit(1)
+
+TOKEN = bot_config.get("DISCORD_BOT_TOKEN")
+GUILD_ID = bot_config.get("DISCORD_GUILD_ID")
+EXPECTED_CLIENT_ID = bot_config.get("DISCORD_CLIENT_ID")
+
+if not TOKEN or not GUILD_ID or not EXPECTED_CLIENT_ID:
+    logging.critical("❌ Missing required bot credentials.")
+    exit(1)
+
+# Convert IDs to integers
+try:
+    GUILD_ID = int(GUILD_ID)
+    EXPECTED_CLIENT_ID = int(EXPECTED_CLIENT_ID)
+    logging.info(f"🔢 Converted GUILD_ID: {GUILD_ID}, CLIENT_ID: {EXPECTED_CLIENT_ID}")
+except ValueError:
+    logging.critical(f"❌ Invalid ID format in encrypted credentials. Ensure they are integers.")
+    exit(1)
+
+SYNC_GUILD = discord.Object(id=GUILD_ID)
+TEST_CHANNEL_ID = 1349704119849320482  # Channel for test messages
+
+# Set up bot intents
 intents = discord.Intents.default()
-intents.message_content = True  # Required to read messages
+intents.message_content = True
 intents.guilds = True
-intents.members = True
-intents.moderation = True  # Remove/comment out if your library doesn't support `moderation`
+intents.members = True  # Required to fetch members
 
-# 4. Bot Configuration
-TOKEN = os.getenv("DISCORD_BOT_TOKEN")
-logging.info(f"DEBUG: Token from .env is: {TOKEN!r}")
-
-GUILD_ID = os.getenv("DISCORD_GUILD_ID")
-SYNC_GUILD = None
-if GUILD_ID:
-    try:
-        guild_id_int = int(GUILD_ID)
-        SYNC_GUILD = discord.Object(id=guild_id_int)
-    except ValueError:
-        logging.error("❌ DISCORD_GUILD_ID is not a valid integer!")
-
-# Channel ID for test message
-TEST_CHANNEL_ID = 1349704119849320482  # Replace with your desired channel ID
 
 class MyBot(commands.Bot):
-    """
-    Custom Bot class that:
-      - Lists all guilds
-      - Checks if a target GUILD_ID is found
-      - Loads security features (async)
-      - Dynamically imports command modules
-      - Syncs slash commands
-      - Tests message readability
-    """
+    """Custom Bot class with enhanced security and optimized startup."""
 
-    def __init__(self, command_modules, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.command_modules = command_modules
-        
-        # Placeholders for Security Features
+
+        # Security feature placeholders
         self.anti_nuke = None
         self.anti_spam = None
         self.anti_predator = None
 
     async def setup_hook(self):
-        """Called automatically by discord.py before the bot is ready."""
-        # 1. Log basic info
-        self.log_startup_info()
+        """Executed before bot is fully ready."""
+        logging.info("✅ Step 1: Inside setup_hook()")
 
-        # 2. List all guilds (might be partial if the bot is large or the server is large)
-        logging.info("🔎 [setup_hook] Checking partial guild info:")
-        self.list_all_guilds()
+        # Ensure bot is in the correct guild
+        target_guild = await self.ensure_correct_guild()
+        if not target_guild:
+            logging.error("❌ The bot is not inside the correct guild! Exiting.")
+            exit(1)
 
-        # 3. Load security features (awaitable now)
+        logging.info("✅ Step 2: Loading security features...")
         await self.load_security_features()
 
-        # 4. Dynamically load all command modules
+        logging.info("✅ Step 3: Loading command modules...")
         await self.load_command_modules()
 
-        # We'll do slash-command sync in on_ready() to ensure the bot sees all guild data.
-
-    def log_startup_info(self):
-        logging.info(f"🔹 Bot Version: {BotInfo.VERSION}")
-        logging.info(f"🔹 Service Status: {BotInfo.get_status()}")
-
-        logging.info("🔍 Checking Intents:")
-        logging.info(f"✔️ Intents.guilds: {self.intents.guilds}")
-        logging.info(f"✔️ Intents.members: {self.intents.members}")
-        logging.info(f"✔️ Intents.message_content: {self.intents.message_content}")
-        logging.info(f"✔️ Intents.moderation: {self.intents.moderation}")
-
-    def list_all_guilds(self):
-        if not self.guilds:
-            logging.info("🔎 The bot is not in any guilds yet.")
-            return
-        for g in self.guilds:
-            logging.info(f" - {g.name} (ID: {g.id})")
-
-    def get_target_guild(self) -> discord.Guild | None:
-        """Returns the Guild matching GUILD_ID, or None if not found."""
-        if not SYNC_GUILD:
-            return None
-        return self.get_guild(SYNC_GUILD.id)
-
-    async def test_message_readability(self, guild: discord.Guild, channel_id: int):
-        """Sends a test message to a channel by ID and verifies the bot can read it."""
-        test_channel = guild.get_channel(channel_id)
-        if not test_channel:
-            logging.warning(f"⚠️ Could not find channel with ID {channel_id} in '{guild.name}'.")
-            return
-
-        try:
-            logging.info(f"📢 Sending test message to <#{channel_id}>...")
-            msg = await test_channel.send("🔍 **Testing message readability** (This will NOT be deleted)")
-            await asyncio.sleep(2)
-
-            # Check the last few messages
-            async for recent_msg in test_channel.history(limit=5):
-                if recent_msg.id == msg.id:
-                    logging.info("✅ Bot successfully read its own test message!")
-                    # Commented out the delete so you can see the message remain
-                    # await msg.delete()
-                    return
-
-            logging.error("❌ Bot could not detect its own message! Check perms or intents.")
-        except discord.Forbidden:
-            logging.error(f"❌ Bot lacks permission to send messages in channel ID {channel_id}!")
-        except Exception as e:
-            logging.error(f"⚠️ Unexpected error while testing message readability: {e}")
+        logging.info("✅ Step 4: Finished setup_hook()")
 
     async def load_security_features(self):
-        """Instantiate each security feature Cog as an async function."""
-        # 1. Anti-Nuke
+        """Instantiate and load each security feature."""
+        logging.info("🔒 Initializing security features...")
+
         try:
             self.anti_nuke = AntiNuke(self)
             logging.info("✅ Anti-Nuke Protection Loaded Successfully.")
         except Exception as e:
             logging.error(f"❌ Failed to load Anti-Nuke: {e}")
 
-        # 2. Anti-Spam
         try:
             self.anti_spam = AntiSpamRaid(self)
             logging.info("✅ Anti-Spam & Raid Protection Loaded Successfully.")
         except Exception as e:
             logging.error(f"❌ Failed to load Anti-Spam/Raid: {e}")
 
-        # 3. Anti-Predator
         try:
             self.anti_predator = AntiPredator(self)
-            # Now that add_cog is async in discord.py 2.x, we must await it:
             await self.add_cog(self.anti_predator)
             logging.info("✅ Anti-Predator Protection Loaded Successfully.")
         except Exception as e:
             logging.error(f"❌ Failed to load Anti-Predator: {e}")
 
     async def load_command_modules(self):
-        """Dynamically imports and loads each command module specified."""
+        """Dynamically import and load command modules from the `commands` folder."""
         logging.info("📥 Loading command modules...")
-        for module_name in self.command_modules:
-            try:
-                module = importlib.import_module(module_name)
-                if hasattr(module, 'setup'):
-                    await module.setup(self)
-                    logging.info(f"✅ Successfully loaded: {module_name}")
-                else:
-                    logging.warning(f"⚠️ `setup()` function missing in {module_name}")
-            except Exception as e:
-                logging.error(f"❌ Error loading {module_name}: {e}")
+        command_path = "commands"
 
-    async def sync_commands(self, guild: discord.Guild, force: bool = False):
-        """Sync slash (application) commands with the Discord API, for a single guild."""
+        for filename in os.listdir(command_path):
+            if filename.endswith("_command.py"):
+                module_name = f"{command_path}.{filename[:-3]}"  # Remove ".py"
+                try:
+                    module = importlib.import_module(module_name)
+                    if hasattr(module, 'setup'):
+                        await module.setup(self)
+                        logging.info(f"✅ Successfully loaded: {module_name}")
+                    else:
+                        logging.warning(f"⚠️ `setup()` function missing in {module_name}")
+                except Exception as e:
+                    logging.error(f"❌ Error loading {module_name}: {e}")
+
+    async def ensure_correct_guild(self):
+        """Ensures the bot is inside the correct Discord server before proceeding."""
+        await asyncio.sleep(2)  # Small delay for bot to load properly
+
+        logging.info("🔎 Checking if bot is inside the correct guild...")
+
+        # ✅ Convert async generator to a list
+        self._guilds = [guild async for guild in self.fetch_guilds(limit=100)]
+        found_guilds = {guild.id: guild.name for guild in self._guilds}
+
+        if found_guilds:
+            for guild in self._guilds:
+                logging.info(f"✅ Bot is in: {guild.name} (ID: {guild.id})")
+
+            if GUILD_ID not in found_guilds:
+                logging.error(f"❌ Expected Guild ID: {GUILD_ID}, but bot is only in: {list(found_guilds.keys())}")
+                logging.error("💡 Make sure the bot is in the correct server or re-invite it.")
+                return None
+            else:
+                logging.info(f"✅ Confirmed: Bot is in the correct guild '{found_guilds[GUILD_ID]}' (ID: {GUILD_ID})")
+        else:
+            logging.error("❌ Bot is not in any servers! Please check if it has been invited.")
+            return None
+
+        # ✅ Use fetch_guild() instead of get_guild()
         try:
-            logging.info(f"🔄 Syncing guild commands for: {guild.name} (ID: {guild.id})")
-            synced = await self.tree.sync(guild=guild)
-            logging.info(f"✅ Synced {len(synced)} commands successfully to '{guild.name}'.")
+            target_guild = await self.fetch_guild(GUILD_ID)
+            logging.info(f"✅ Successfully fetched guild: {target_guild.name} (ID: {target_guild.id})")
+        except discord.NotFound:
+            logging.error(f"❌ Guild with ID {GUILD_ID} not found! The bot might have been removed.")
+            return None
+        except discord.Forbidden:
+            logging.error(f"❌ Bot lacks permissions to fetch guild info for ID {GUILD_ID}.")
+            return None
 
-            if force:
-                logging.info("🔄 **Forced sync** to ensure commands are up to date.")
-        except Exception as e:
-            logging.error(f"❌ Error syncing commands: {e}")
+        return target_guild
 
     async def on_ready(self):
-        """Triggered when the bot has successfully connected and is ready."""
+        """Triggered when the bot is fully ready."""
         logging.info(f"🚀 {self.user} is online and ready!")
-        logging.info("🔐 **Security Features Status:**")
-        logging.info(f"🛡 Anti-Nuke: {'✅ Active' if self.anti_nuke else '❌ Failed'}")
-        logging.info(f"🛡 Anti-Spam/Raid: {'✅ Active' if self.anti_spam else '❌ Failed'}")
-        logging.info(f"🛡 Anti-Predator: {'✅ Active' if self.anti_predator else '❌ Failed'}")
 
-        # Once the bot is truly ready, let's do final slash command sync
-        target_guild = self.get_target_guild()
-        if target_guild:
-            await self.sync_commands(target_guild, force=True)
-            # Test message readability
-            await self.test_message_readability(target_guild, TEST_CHANNEL_ID)
+        # Fetch and log actual Client ID
+        client_id = self.user.id
+        logging.info(f"🤖 Detected Bot Client ID: {client_id}")
+
+        if client_id != EXPECTED_CLIENT_ID:
+            logging.warning(f"⚠️ WARNING: Expected Client ID {EXPECTED_CLIENT_ID}, but got {client_id}.")
+            logging.warning("💡 Make sure you are running the correct bot.")
         else:
-            logging.warning("⚠️ No valid GUILD_ID or the bot isn't in that server.")
+            logging.info(f"✅ Bot Client ID matches expected ID ({EXPECTED_CLIENT_ID}).")
+
+        # Ensure bot is in the correct server
+        await self.ensure_correct_guild()
+
 
 async def main():
-    """The asynchronous entry point for the bot."""
-    if not TOKEN:
-        logging.error("❌ DISCORD_BOT_TOKEN not found! Please set it in your .env file.")
-        return
-
-    command_modules = [
-        "commands.userinfo_command",
-        "commands.youtube_command",
-        "commands.donate_command",
-        "commands.update_latest_command",
-        "commands.buy_premium_command",
-        "commands.play_command",
-    ]
-
-    # Instantiate our custom bot
+    """Main entry point for the bot."""
     bot = MyBot(
-        command_modules=command_modules,
         command_prefix="!",
         intents=intents,
-        activity=discord.Game(name=f"Echo Bot v{BotInfo.VERSION}"),
+        activity=discord.Game(name="Secure Bot"),
         status=discord.Status.online
     )
 
