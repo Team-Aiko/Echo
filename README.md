@@ -20,17 +20,23 @@ Welcome to **Echo**, the ultimate Discord bot that grows alongside your server! 
 ---
 
 ## 📌 **Version and Changelog**
-### **Current Version: 1.3.7**
+### **Current Version: 1.3.9**
 - 🚀 **Major Performance Boost**: Optimized bot startup and command execution speed.
-- 🐞 **Critical Fixes**: Resolved issues with slash command registration and syncing.
-- 🎬 **YouTube Command Overhaul**: Faster video retrieval with better API handling and improved error reporting.
-- 🔊 **Audio Streaming Improvements**: Increased bitrate and stability in `/play` for better sound quality.
+- 🛡 **Enhanced Security Features**: Implemented advanced **Anti-Predator detection** with role-based notifications.
+- 🛠 **Fixed DM Notifications**: Ensures that **admins and moderators with specific roles** are notified.
+- 📢 **Security Core Modules Notice**: Core security logic is **not included in the public repository** to protect sensitive data.
+- 🔍 **Guild Verification at Startup**: Bot now verifies **stored and live guild IDs** before activating.
+- 📩 **Test Message Verification Fix**: Ensures test messages are properly sent and logged for debugging.
+- 📊 **Suspicion Scoring System (WIP)**: AI-based **multi-factor analysis** for detecting **predatory behavior** (Training Mode - Not Yet Active).
+- 🐞 **Critical Fixes**: Resolved issues with **slash command registration and syncing**.
+- 🎬 **YouTube Command Overhaul**: Faster video retrieval with **better API handling** and improved error reporting.
+- 🔊 **Audio Streaming Improvements**: Increased **bitrate and stability** in `/play` for better sound quality.
   - ⚠️ **Note:** While sound quality has improved, **some slight distortions may still occur** due to Discord's streaming limitations.
-- 📌 **Refined `/userinfo` Command**: Now includes profile buttons, role display, and improved visual clarity.
-- 🔄 **Optimized API Handling**: Improved YouTube API requests with faster responses and better error handling.
-- ⚡ **Faster Command Execution**: Reduced latency across all commands for a smoother user experience.
-- 🎨 **Enhanced UI & Interactivity**: Improved premium & donation command designs (⚠️ Not Available Yet).
-- 🔧 **Bug Fixes & Stability Updates**: Addressed minor issues for better overall performance and reliability.
+- 📌 **Refined `/userinfo` Command**: Now includes **profile buttons, role display, and improved visual clarity**.
+- 🔄 **Optimized API Handling**: Improved YouTube API requests with **faster responses** and **better error handling**.
+- ⚡ **Faster Command Execution**: Reduced **latency across all commands** for a smoother user experience.
+- 🎨 **Enhanced UI & Interactivity**: Improved **premium & donation command designs** (⚠️ Not Available Yet).
+- 🔧 **Bug Fixes & Stability Updates**: Addressed **minor issues** for better overall performance and reliability.
 
 ---
 
