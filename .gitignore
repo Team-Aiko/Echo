@@ -5,6 +5,7 @@ secure_config.dat
 encryption_key.key
 admin_unlock.key
 salt.key
+secure_storage.py
 
 # 🚫 Security & Core Modules (Keep Private)
 core/anti_nuke.py
