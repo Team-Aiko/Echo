@@ -1,37 +1,42 @@
-# 🐍 Python Bytecode
+# 🛡 SECURITY - DO NOT TRACK SENSITIVE FILES
+
+# 🔑 Encrypted Credentials & Security Keys
+secure_config.dat
+encryption_key.key
+admin_unlock.key
+salt.key
+
+# 🚫 Security & Core Modules (Keep Private)
+core/anti_nuke.py
+core/anti_predator.py
+core/anti_spam.py
+core/bot_info.py
+
+# 🗃 Machine-Specific & Local Config Files
+.env
+config.json  # Any local configuration (if used)
+_config.yml  # Docs configuration (if applicable)
+
+# 🐍 Python Bytecode & Compiled Files
 *.pyc
 *.pyo
+*.pyd
 __pycache__/
-*.py[cod]
 
-# 🛠 Virtual Environment
+# 🛠 Virtual Environment Folders
 .venv/
 env/
 venv/
 
-# 🔑 Environment Variables & Secrets
-.env
-secure_config.dat
-config.json  # Any local config files (if used)
-secure_storage.py
-
-# 🔒 Security & Core Modules (DO NOT PUSH)
-core/
-guild_id.json  # Stores guild ID (should not be public)
-anti_nuke.py  # Security module
-anti_predator.py  # Security module
-anti_spam.py  # Security module
-bot_info.py  # Internal bot version/info
-
-# 📂 Operating System Files
-.DS_Store
-Thumbs.db
-
-# 📝 Logs & Debug Files
+# 📝 Logs & Debugging Files
 *.log
 logs/
 debug.log
 error.log
 
-# 📦 Dependencies (Optional, if using local dependencies)
-node_modules/
+# 📂 Operating System-Specific Files
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# 📦 Dependencies & Package Manager Folders
+node_modules/  # If using Node.js alongside Python

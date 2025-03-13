@@ -1,5 +1,6 @@
-# 🌟 **Echo**  
-*Your evolving, feature-packed Discord companion—built for the future!*
+# 🛡️ **Echo - The Future of Secure Discord Bots**
+
+*Your evolving, feature-packed Discord companion—built for security, stability, and innovation.*
 
 ---
 
@@ -9,146 +10,159 @@
 
 ---
 
-## 🚀 **Introduction**  
-Welcome to **Echo**, the ultimate Discord bot that grows alongside your server! While Echo is **still under development**, key features like the **YouTube Command** are fully functional and here to stay. As development progresses, placeholders will evolve into powerful tools to make Echo an indispensable part of your community.
+## 🚀 **Introduction**
+Welcome to **Echo**, a next-generation Discord bot that goes beyond simple automation. Designed with **security-first principles**, Echo is built to protect, engage, and enhance your community experience.
 
-### 🌟 Why Choose Echo?  
-- Fully customizable as it evolves to meet your server's needs.  
-- Built on the reliable Discord API and Python for speed and scalability.  
-- Forward-looking, with planned AI integration and premium upgrades for advanced users.
+### 🔥 **Why Security is Our Top Priority**
+Unlike many bots that **only focus on functionality**, Echo is designed to ensure **your server remains protected from attacks, spam, and malicious activity.** 
+
+🔹 **Overkill security? Maybe. Necessary? Absolutely.** Most attacks aren’t random—they’re targeted. **We don’t just stop casual rule breakers; we prepare for real threats.**
+
+🔹 **Why we don’t reveal everything:** Some aspects of Echo’s security system are **not public** for a reason. If a bot’s defenses are fully explained, attackers can find ways to bypass them. Security isn’t just about having defenses—it’s about keeping them unpredictable.
+
+⚠ **Bots are NOT a replacement for human moderation.** Always combine automated security with **trusted admins.**
 
 ---
 
 ## 📌 **Version and Changelog**
 ### **Current Version: 1.3.9**
-- 🚀 **Major Performance Boost**: Optimized bot startup and command execution speed.
-- 🛡 **Enhanced Security Features**: Implemented advanced **Anti-Predator detection** with role-based notifications.
-- 🛠 **Fixed DM Notifications**: Ensures that **admins and moderators with specific roles** are notified.
-- 📢 **Security Core Modules Notice**: Core security logic is **not included in the public repository** to protect sensitive data.
-- 🔍 **Guild Verification at Startup**: Bot now verifies **stored and live guild IDs** before activating.
-- 📩 **Test Message Verification Fix**: Ensures test messages are properly sent and logged for debugging.
-- 📊 **Suspicion Scoring System (WIP)**: AI-based **multi-factor analysis** for detecting **predatory behavior** (Training Mode - Not Yet Active).
-- 🐞 **Critical Fixes**: Resolved issues with **slash command registration and syncing**.
-- 🎬 **YouTube Command Overhaul**: Faster video retrieval with **better API handling** and improved error reporting.
-- 🔊 **Audio Streaming Improvements**: Increased **bitrate and stability** in `/play` for better sound quality.
-  - ⚠️ **Note:** While sound quality has improved, **some slight distortions may still occur** due to Discord's streaming limitations.
-- 📌 **Refined `/userinfo` Command**: Now includes **profile buttons, role display, and improved visual clarity**.
-- 🔄 **Optimized API Handling**: Improved YouTube API requests with **faster responses** and **better error handling**.
-- ⚡ **Faster Command Execution**: Reduced **latency across all commands** for a smoother user experience.
-- 🎨 **Enhanced UI & Interactivity**: Improved **premium & donation command designs** (⚠️ Not Available Yet).
-- 🔧 **Bug Fixes & Stability Updates**: Addressed **minor issues** for better overall performance and reliability.
+- 🚀 **Performance Boost**: Optimized command execution speed.
+- 🛡 **Enhanced Security Features**: Implemented **Anti-Predator detection** with real-time alerts.
+- 🛠 **Fixed DM Notifications**: Ensures **admins and moderators** are properly notified.
+- 🔍 **Guild Verification at Startup**: Prevents unauthorized bot deployments.
+- 📊 **Suspicion Scoring System (WIP)**: AI-driven risk detection (Training Mode - Not Yet Active).
+- 🎬 **YouTube Command Overhaul**: Faster video retrieval & better error handling.
+- 🔧 **Bug Fixes & Stability Updates**: Improved Discord API handling.
 
 ---
 
-## 🛠️ **Features**
-### ✅ **Currently Functional**  
-- 🎉 **YouTube Command**:  
-   - **Basic Mode**: Fetches quick video information for free.  
-   - **Premium Mode**: Unlocks **full YouTube API capabilities**, such as detailed stats and metadata.  
+## 🛡️ **Security Features**
+### 🛑 **1. Anti-Nuke Protection**
+✔ Prevents **mass deletions of channels, roles, and bans.**
+✔ Detects **suspicious admin activity** and stops potential nukes.
+✔ Alerts **server owners & trusted moderators** before damage occurs.
 
-- 🚀 **Dynamic Testing Environment**:  
-   - Most features are currently placeholders, being actively developed and tested.  
-   - Modular design for easy addition or improvement of commands.  
-
-### 💡 **Planned Features**  
-- ✨ **AI Integration**: Advanced capabilities powered by AI APIs.  
-- 🔐 **Premium Services**: Exclusive features like priority responses and enhanced tools for subscribers.  
-- 🌍 **Community Commands**: Interactive commands to engage and grow your server effectively.  
+```bash
+# Enabled by default
+```
 
 ---
 
-Here's your **extensive emotion list** neatly formatted, integrated directly into your existing markdown-ready GitHub README for easy copy-and-paste:
+### 🚨 **2. Anti-Spam & Raid Protection**
+✔ Blocks **spam messages, bot raids, and ghost pings.**
+✔ Auto-mutes spammers & detects mass user joins.
+✔ Alerts moderators to potential threats.
+
+```bash
+# Enabled by default
+```
 
 ---
 
-## 📚 **Emotion Categories & Sub-Emotions**
+### 🛡 **3. Anti-Predator & Child Safety Protection**
+✔ **Identifies predatory behavior** in private messages & server chats.
+✔ AI-powered detection flags **grooming attempts** and **manipulative messages.**
+✔ **Notifies moderators & takes action** against offenders.
+✔ **Child safety is a priority**—Echo helps prevent harmful interactions.
 
-| **Emotion Category** | **Examples of Sub-Emotions**                                         |
-|----------------------|----------------------------------------------------------------------|
-| **Love & Affection** | love, affection, warmth, intimacy, caring, tenderness, devotion, passion, attraction, fondness, compassion |
-| **Happiness**        | joy, excitement, delight, cheerfulness, relief, euphoria, satisfaction, pride, contentment, enthusiasm, optimism, amusement |
-| **Sadness**          | sorrow, loneliness, melancholy, regret, longing, despair, grief, disappointment, emptiness, hopelessness, gloom |
-| **Nervousness**      | anxiety, embarrassment, shyness, hesitation, apprehension, uncertainty, unease, insecurity, worry, awkwardness |
-| **Anger**            | frustration, irritation, annoyance, resentment, jealousy, rage, indignation, bitterness, hostility, agitation |
-| **Fear**             | worry, insecurity, dread, panic, terror, paranoia, horror, vulnerability, distress, intimidation, concern |
-| **Surprise**         | astonishment, amazement, curiosity, confusion, disbelief, shock, awe, wonder, bewilderment, fascination |
-| **Sadness**          | sorrow, loneliness, melancholy, regret, grief, despair, heartbreak, disappointment, longing, nostalgia |
-| **Embarrassment**    | shame, awkwardness, humiliation, guilt, self-consciousness, discomfort, insecurity, bashfulness, mortification |
-| **Disgust**          | dislike, aversion, distaste, contempt, loathing, revulsion, disdain, hatred, resentment, abhorrence |
-| **Trust**            | confidence, security, reliability, loyalty, faith, reassurance, comfort, dependence, sincerity, acceptance |
-| **Surprise**         | shock, astonishment, amazement, bewilderment, curiosity, confusion, wonder, disbelief, awe, intrigue |
-| **Anticipation**     | eagerness, hopefulness, expectation, excitement, impatience, optimism, curiosity, suspense, readiness, longing |
-| **Boredom**          | disinterest, lethargy, fatigue, detachment, apathy, dullness, weariness, monotony, unengaged, indifference |
-| **Guilt**            | remorse, regret, shame, self-blame, contrition, embarrassment, accountability, repentance, culpability |
-| **Pride**            | satisfaction, accomplishment, confidence, dignity, fulfillment, triumph, self-esteem, self-assurance |
-| **Loneliness**       | isolation, emptiness, abandonment, alienation, exclusion, withdrawal, rejection, sadness, yearning |
-| **Confusion**        | uncertainty, bewilderment, puzzlement, hesitation, doubt, perplexity, disorientation, indecision |
-| **Curiosity**        | interest, intrigue, inquisitiveness, fascination, exploration, questioning, wonder, investigation |
-| **Jealousy**         | envy, possessiveness, insecurity, suspicion, bitterness, resentment, competitiveness, rivalry |
-| **Admiration**       | respect, appreciation, esteem, idolization, reverence, adoration, regard, honor, approval |
-| **Hope**             | optimism, encouragement, expectation, aspiration, positivity, confidence, belief, trust |
-| **Despair**          | hopelessness, misery, defeat, depression, desperation, anguish, resignation, discouragement |
-| **Guilt & Shame**    | remorse, regret, self-blame, humiliation, embarrassment, discomfort, accountability, remorsefulness |
-| **Pride & Confidence**| confidence, self-respect, dignity, honor, fulfillment, satisfaction, self-esteem, triumph |
-| **Insecurity**       | self-doubt, anxiety, vulnerability, inferiority, inadequacy, hesitation, uncertainty, timidity |
-| **Jealousy & Envy**  | envy, possessiveness, resentment, suspicion, rivalry, bitterness, insecurity, desire |
-| **Admiration & Respect** | esteem, appreciation, honor, adoration, reverence, idolization, awe, approval, veneration |
-| **Amusement & Humor** | laughter, entertainment, amusement, delight, enjoyment, merriment, cheerfulness, glee, playfulness |
-| **Gratitude**        | appreciation, thankfulness, acknowledgment, indebtedness, recognition, humility, respect, sincerity |
-| **Disappointment**   | dissatisfaction, disillusionment, regret, frustration, unhappiness, discouragement, sadness |
-| **Pride & Confidence** | pride, dignity, honor, confidence, self-respect, courage, boldness, assertiveness |
+```bash
+# Enabled by default
+```
+
+> **Why This Matters:** Online spaces **aren’t always safe for younger users.** Echo provides **real-time moderation assistance** to detect and **prevent harmful interactions** before they escalate.
 
 ---
 
-Ignore the List Above (its For the AI)
+### 🔍 **4. Security Logging & Alerts**
+✔ Logs **all security-related actions** in a **moderator-only channel**.
+✔ **Real-time alerts** for detected threats.
+✔ Provides a full **audit log** for transparency.
+
+```bash
+# Logs all security actions
+```
 
 ---
 
-This extensive list will help your AI convincingly convey complex emotional reactions, responses, and subtle character interactions, ensuring a vivid and engaging conversational experience.
+## 🔐 **Encryption & Why It’s Important**
+### 🔹 **What’s Encrypted?**
+✅ **Bot Token** (Prevents unauthorized access)
+✅ **Guild ID & Client ID** (Stops misuse & impersonation)
+✅ **Stored Securely** – **NEVER written in plaintext**
+
+🔒 **We don’t expose details about our encryption methods**—this ensures our security systems **stay unpredictable to potential attackers.**
+
+### ✅ **How to Securely Store Your Credentials**
+```bash
+python secure_storage.py setup  # Generates encryption key
+python secure_storage.py encrypt # Encrypts bot credentials
+```
+🔹 Follow the prompts to enter **your bot token, guild ID, and client ID.**
+🔹 Credentials are encrypted and stored securely.
+
+### 🔓 **How to Decrypt and Run the Bot**
+```bash
+python secure_storage.py decrypt  # Decrypts credentials securely
+python main.py                     # Runs the bot with secure access
+```
+✔ **Only the authorized system** can decrypt the credentials.
+✔ **Decryption happens in memory**—your credentials are NEVER stored in plaintext.
 
 ---
-## 📖 **How to Use**
-### **Setup Guide**  
+
+## 🔧 **Maximizing Security**
+To ensure maximum protection:
+```bash
+1️⃣ Set up a `#mod-logs` channel for security alerts.
+2️⃣ Ensure the bot has proper permissions to monitor and take action.
+3️⃣ Regularly update the bot for the latest security improvements.
+4️⃣ Fine-tune detection settings to balance security & usability.
+```
+
+---
+
+## 📖 **How to Use Echo**
+### **Setup Guide**
 1. **Invite Echo to Your Server** *(Coming soon!)*  
 2. Use `/` to explore and try available commands.  
 
 | **Command**       | **Description**                                      | **Status**       |
 |--------------------|------------------------------------------------------|------------------|
-| `/youtube`         | Fetch YouTube video info (basic or premium).         | ✅ Functional    |
+| `/youtube`         | Fetch YouTube video info.                           | ✅ Functional    |
 | `/userinfo`        | Retrieve details about a server member.              | 🛠️ Placeholder   |
 | `/update_latest`   | Pull the latest data updates for the bot.            | 🛠️ Placeholder   |
 
 ---
 
-## 🌍 **Roadmap**  
-| **Milestone**              | **Details**                                                                       | **ETA**          |
-|----------------------------|-----------------------------------------------------------------------------------|------------------|
-| **YouTube Command**        | Finalize free and premium functionality.                                          | 1-2 weeks        |
-| **AI Integration**         | Implement API-based advanced AI capabilities.                                     | TBD              |
-| **Full Echo Launch**       | Official release with tested and stable features.                                 | TBD              |
+## 🌍 **Roadmap**
+| **Milestone**              | **Details**                                      | **ETA**          |
+|----------------------------|--------------------------------------------------|------------------|
+| **YouTube Command**        | Finalize free & premium functionality.          | 1-2 weeks        |
+| **AI Integration**         | Implement AI-based content moderation.          | TBD              |
+| **Full Echo Launch**       | Official release with stable features.          | TBD              |
 
 ---
 
-## 💬 **Community and Support**  
+## 💬 **Community and Support**
 We want to hear from you! Whether it's feedback or contributions, your input helps Echo grow:  
-- Join our **Discord Support Server**: *(Coming soon!)*  
-- Create an issue or feature request in this GitHub repository.  
+- **Join our Discord Support Server** *(Coming soon!)*  
+- **Create an issue or feature request on GitHub.**  
 
 ---
 
-## 🛡️ **License**  
+## 🛡️ **License**
 Echo is licensed under the [MIT License](https://opensource.org/licenses/MIT). Feel free to fork, improve, or contribute to this project!
 
 ---
 
-## 📣 **Stay Connected**  
-Follow Echo's development journey and updates:  
+## 📣 **Stay Connected**
+Follow Echo’s development journey and updates:  
 - ⭐ [GitHub Repository](https://github.com/yourusername/Echo)  
-- 🛠️ Check out the roadmap and share your ideas!  
+- 🛠️ Check out the roadmap & share your ideas!
 
 ---
 
-## 🔗 **Quick Links**  
-- **Invite Echo**: *(Coming soon!)*  
-- **Support Server**: *(Coming soon!)*  
-- **Contribute**: [GitHub Repository](https://github.com/yourusername/Echo)  
+## 🔗 **Quick Links**
+- **Invite Echo** *(Coming soon!)*  
+- **Support Server** *(Coming soon!)*  
+- **Contribute**: [GitHub Repository](https://github.com/yourusername/Echo)

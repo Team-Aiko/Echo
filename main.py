@@ -4,71 +4,80 @@ import logging
 import importlib
 import asyncio
 import os
-from secure_storage import load_encrypted_data  # Import secure credential loader
+from secure_storage import decrypt_data
 from core.anti_nuke import AntiNuke
 from core.anti_spam import AntiSpamRaid
 from core.anti_predator import AntiPredator
 from core.bot_info import BotInfo
 
-# Set up logging
+# 🔐 Secure Logging Configuration
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-# Load encrypted bot credentials
-bot_config = load_encrypted_data()
+def secure_mask(value, visible_digits=4):
+    """
+    Masks sensitive data before logging.
+    """
+    value = str(value)
+    masked_length = len(value) - visible_digits
+    return "*" * masked_length + value[-visible_digits:] if masked_length > 0 else value
 
-if not bot_config:
-    logging.critical("❌ Failed to load encrypted bot credentials. Run `secure_storage.py /encrypt` first.")
+# ✅ Securely Decrypt Bot Credentials
+try:
+    bot_config = decrypt_data()
+    logging.info("🔓 Bot credentials successfully decrypted.")
+except Exception as e:
+    logging.critical(f"❌ Failed to decrypt bot credentials: {e}")
     exit(1)
 
-TOKEN = bot_config.get("DISCORD_BOT_TOKEN")
-GUILD_ID = bot_config.get("DISCORD_GUILD_ID")
-EXPECTED_CLIENT_ID = bot_config.get("DISCORD_CLIENT_ID")
+# ✅ Extract and Validate Bot Credentials
+TOKEN = bot_config.get("DISCORD_BOT_TOKEN", "").strip()
+GUILD_ID = bot_config.get("DISCORD_GUILD_ID", "").strip()
+CLIENT_ID = bot_config.get("DISCORD_CLIENT_ID", "").strip()
 
-if not TOKEN or not GUILD_ID or not EXPECTED_CLIENT_ID:
-    logging.critical("❌ Missing required bot credentials.")
+if not TOKEN or not GUILD_ID or not CLIENT_ID:
+    logging.critical("❌ Missing required bot credentials. Exiting...")
     exit(1)
 
-# Convert IDs to integers
+# Debugging - Ensure the token is retrieved correctly
+logging.info(f"DEBUG: Retrieved Token Length: {len(TOKEN)}")
+logging.info(f"🔢 GUILD_ID: {secure_mask(GUILD_ID)}, CLIENT_ID: {secure_mask(CLIENT_ID)}")
+
+# ✅ Convert IDs to Integers & Validate
 try:
     GUILD_ID = int(GUILD_ID)
-    EXPECTED_CLIENT_ID = int(EXPECTED_CLIENT_ID)
-    logging.info(f"🔢 Converted GUILD_ID: {GUILD_ID}, CLIENT_ID: {EXPECTED_CLIENT_ID}")
+    CLIENT_ID = int(CLIENT_ID)
 except ValueError:
-    logging.critical(f"❌ Invalid ID format in encrypted credentials. Ensure they are integers.")
+    logging.critical("❌ Invalid ID format in encrypted credentials. Ensure they are integers.")
     exit(1)
 
-SYNC_GUILD = discord.Object(id=GUILD_ID)
-TEST_CHANNEL_ID = 1349704119849320482  # Channel for test messages
+# ✅ Ensure Token is Properly Formatted
+if len(TOKEN) < 50:  # Discord bot tokens are usually 59+ characters
+    logging.critical("🚨 Decrypted bot token is invalid! Check encryption.")
+    exit(1)
 
-# Set up bot intents
+# ✅ Define Secure Bot Intents
 intents = discord.Intents.default()
 intents.message_content = True
 intents.guilds = True
-intents.members = True  # Required to fetch members
-
+intents.members = True
 
 class MyBot(commands.Bot):
-    """Custom Bot class with enhanced security and optimized startup."""
+    """Custom Bot Class with Secure Startup"""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-        # Security feature placeholders
         self.anti_nuke = None
         self.anti_spam = None
         self.anti_predator = None
 
     async def setup_hook(self):
-        """Executed before bot is fully ready."""
         logging.info("✅ Step 1: Inside setup_hook()")
-
-        # Ensure bot is in the correct guild
         target_guild = await self.ensure_correct_guild()
         if not target_guild:
-            logging.error("❌ The bot is not inside the correct guild! Exiting.")
+            logging.critical("❌ The bot is not inside the correct guild! Exiting.")
             exit(1)
 
         logging.info("✅ Step 2: Loading security features...")
@@ -80,21 +89,21 @@ class MyBot(commands.Bot):
         logging.info("✅ Step 4: Finished setup_hook()")
 
     async def load_security_features(self):
-        """Instantiate and load each security feature."""
+        """Loads security protections."""
         logging.info("🔒 Initializing security features...")
-
+        
         try:
             self.anti_nuke = AntiNuke(self)
             logging.info("✅ Anti-Nuke Protection Loaded Successfully.")
         except Exception as e:
             logging.error(f"❌ Failed to load Anti-Nuke: {e}")
-
+        
         try:
             self.anti_spam = AntiSpamRaid(self)
             logging.info("✅ Anti-Spam & Raid Protection Loaded Successfully.")
         except Exception as e:
             logging.error(f"❌ Failed to load Anti-Spam/Raid: {e}")
-
+        
         try:
             self.anti_predator = AntiPredator(self)
             await self.add_cog(self.anti_predator)
@@ -103,13 +112,13 @@ class MyBot(commands.Bot):
             logging.error(f"❌ Failed to load Anti-Predator: {e}")
 
     async def load_command_modules(self):
-        """Dynamically import and load command modules from the `commands` folder."""
+        """Dynamically imports and loads all command modules securely."""
         logging.info("📥 Loading command modules...")
         command_path = "commands"
-
+        
         for filename in os.listdir(command_path):
             if filename.endswith("_command.py"):
-                module_name = f"{command_path}.{filename[:-3]}"  # Remove ".py"
+                module_name = f"{command_path}.{filename[:-3]}"
                 try:
                     module = importlib.import_module(module_name)
                     if hasattr(module, 'setup'):
@@ -121,62 +130,30 @@ class MyBot(commands.Bot):
                     logging.error(f"❌ Error loading {module_name}: {e}")
 
     async def ensure_correct_guild(self):
-        """Ensures the bot is inside the correct Discord server before proceeding."""
-        await asyncio.sleep(2)  # Small delay for bot to load properly
-
-        logging.info("🔎 Checking if bot is inside the correct guild...")
-
-        # ✅ Convert async generator to a list
-        self._guilds = [guild async for guild in self.fetch_guilds(limit=100)]
-        found_guilds = {guild.id: guild.name for guild in self._guilds}
-
-        if found_guilds:
-            for guild in self._guilds:
-                logging.info(f"✅ Bot is in: {guild.name} (ID: {guild.id})")
-
-            if GUILD_ID not in found_guilds:
-                logging.error(f"❌ Expected Guild ID: {GUILD_ID}, but bot is only in: {list(found_guilds.keys())}")
-                logging.error("💡 Make sure the bot is in the correct server or re-invite it.")
-                return None
-            else:
-                logging.info(f"✅ Confirmed: Bot is in the correct guild '{found_guilds[GUILD_ID]}' (ID: {GUILD_ID})")
-        else:
-            logging.error("❌ Bot is not in any servers! Please check if it has been invited.")
-            return None
-
-        # ✅ Use fetch_guild() instead of get_guild()
+        """Ensures the bot is running in the correct guild."""
+        await asyncio.sleep(2)  # Delay for bot to load properly
+        logging.info("🔎 Verifying bot is inside the correct guild...")
+        
         try:
             target_guild = await self.fetch_guild(GUILD_ID)
-            logging.info(f"✅ Successfully fetched guild: {target_guild.name} (ID: {target_guild.id})")
+            logging.info(f"✅ Successfully verified guild: {target_guild.name} (ID: {secure_mask(GUILD_ID)})")
+            return target_guild
         except discord.NotFound:
-            logging.error(f"❌ Guild with ID {GUILD_ID} not found! The bot might have been removed.")
-            return None
+            logging.critical(f"❌ Guild with ID {secure_mask(GUILD_ID)} not found! The bot may have been removed.")
         except discord.Forbidden:
-            logging.error(f"❌ Bot lacks permissions to fetch guild info for ID {GUILD_ID}.")
-            return None
-
-        return target_guild
+            logging.critical(f"❌ Bot lacks permissions to verify the guild ID {secure_mask(GUILD_ID)}.")
+        except Exception as e:
+            logging.error(f"⚠️ Unexpected error while fetching guild: {e}")
+        
+        return None
 
     async def on_ready(self):
-        """Triggered when the bot is fully ready."""
-        logging.info(f"🚀 {self.user} is online and ready!")
-
-        # Fetch and log actual Client ID
-        client_id = self.user.id
-        logging.info(f"🤖 Detected Bot Client ID: {client_id}")
-
-        if client_id != EXPECTED_CLIENT_ID:
-            logging.warning(f"⚠️ WARNING: Expected Client ID {EXPECTED_CLIENT_ID}, but got {client_id}.")
-            logging.warning("💡 Make sure you are running the correct bot.")
-        else:
-            logging.info(f"✅ Bot Client ID matches expected ID ({EXPECTED_CLIENT_ID}).")
-
-        # Ensure bot is in the correct server
-        await self.ensure_correct_guild()
-
+        logging.info(f"🚀 {self.user} is online and fully operational!")
+        detected_client_id = self.user.id
+        logging.info(f"🤖 Detected Bot Client ID: {secure_mask(detected_client_id)}")
 
 async def main():
-    """Main entry point for the bot."""
+    """Main entry point for securely running the bot."""
     bot = MyBot(
         command_prefix="!",
         intents=intents,
@@ -185,10 +162,12 @@ async def main():
     )
 
     try:
-        logging.info("🟢 Bot is starting...")
+        logging.info("🟢 Secure bot startup initiated...")
         await bot.start(TOKEN)
+    except discord.errors.LoginFailure:
+        logging.critical("❌ Login failed! Check your bot token and Discord Developer Portal.")
     except KeyboardInterrupt:
-        logging.info("🛑 Shutting down bot gracefully...")
+        logging.info("🛑 Secure shutdown initiated...")
         await bot.close()
 
 if __name__ == "__main__":
